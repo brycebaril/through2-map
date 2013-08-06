@@ -27,10 +27,10 @@
   "devDependencies": {
     "tape": "~1.0.4",
     "tap": "~0.4.3",
-    "stream-spigot": "~2.0.0"
+    "stream-spigot": "~2.0.0",
+    "concat-stream": "~1.0.0"
   },
   "dependencies": {
-    "through2": "~0.1.0",
-    "concat-stream": "~1.0.0"
+    "through2": "~0.1.0"
   }
 }
