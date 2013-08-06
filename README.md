@@ -1,6 +1,8 @@
 through2-map
 ============
 
+[![NPM](https://nodei.co/npm/through2-map.png)](https://nodei.co/npm/through2-map/)
+
 This is a super thin wrapper around [through2](http://npm.im/through2) that works like `Array.prototype.map` but for streams.
 
 For when through2 is just too verbose :wink:
