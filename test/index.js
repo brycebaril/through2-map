@@ -29,9 +29,10 @@ test("ctor", function (t) {
 })
 
 test("ctor options", function (t) {
-  t.plan(2)
+  t.plan(7)
 
-  var Map = map.ctor({objectMode: true}, function (record) {
+  var Map = map.ctor({objectMode: true, foo: "bar"}, function (record) {
+    t.equals(this.options.foo, "bar", "can see options")
     record.foo.toUpperCase()
     return record
   })

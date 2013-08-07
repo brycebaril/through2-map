@@ -8,12 +8,14 @@ function ctor(options, fn) {
     fn = options
     options = {}
   }
-  options._index = 0
-  return through2.ctor(options, function (chunk, encoding, callback) {
+
+  var Map = through2.ctor(options, function (chunk, encoding, callback) {
     if (this.options.wantStrings) chunk = chunk.toString()
-    this.push(fn(chunk, this.options._index++))
+    this.push(fn.call(this, chunk, this._index++))
     return callback()
   })
+  Map.prototype._index = 0
+  return Map
 }
 
 function make(options, fn) {
