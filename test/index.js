@@ -2,7 +2,7 @@ var test = require("tape").test
 
 var map = require("../")
 var spigot = require("stream-spigot")
-var concat = require("concat-stream")
+var concat = require("terminus").concat
 
 test("ctor", function (t) {
   t.plan(2)
@@ -17,15 +17,15 @@ test("ctor", function (t) {
     t.notOk(records.filter(function (r) { /^[A-Z]$/.exec(r.foo) }).length, "Everything uppercased")
   }
 
-  spigot([
+  spigot({objectMode: true}, [
     {foo: "bar"},
     {foo: "baz"},
     {foo: "bif"},
     {foo: "blah"},
     {foo: "buzz"},
-  ], {objectMode: true})
+  ])
     .pipe(new Map({objectMode: true}))
-    .pipe(concat(combine))
+    .pipe(concat({objectMode: true}, combine))
 })
 
 test("ctor options", function (t) {
@@ -42,15 +42,15 @@ test("ctor options", function (t) {
     t.notOk(records.filter(function (r) { /^[A-Z]$/.exec(r.foo) }).length, "Everything uppercased")
   }
 
-  spigot([
+  spigot({objectMode: true}, [
     {foo: "bar"},
     {foo: "baz"},
     {foo: "bif"},
     {foo: "blah"},
     {foo: "buzz"},
-  ], {objectMode: true})
+  ])
     .pipe(new Map({objectMode: true}))
-    .pipe(concat(combine))
+    .pipe(concat({objectMode: true}, combine))
 })
 
 test("ctor buffer wantStrings index", function (t) {
@@ -88,15 +88,15 @@ test("simple", function (t) {
     t.notOk(records.filter(function (r) { /^[A-Z]$/.exec(r.foo) }).length, "Everything uppercased")
   }
 
-  spigot([
+  spigot({objectMode: true}, [
     {foo: "bar"},
     {foo: "baz"},
     {foo: "bif"},
     {foo: "blah"},
     {foo: "buzz"},
-  ], {objectMode: true})
+  ])
     .pipe(m)
-    .pipe(concat(combine))
+    .pipe(concat({objectMode: true}, combine))
 })
 
 test("simple buffer", function (t) {
@@ -124,12 +124,15 @@ test("simple buffer", function (t) {
 test("end early", function (t) {
   t.plan(1)
 
-  var f = map({objectMode: true}, function (chunk) {
-    return null
+  var count = 0
+  var f = map(function (chunk) {
+    if (++count > 1)
+      return null
+    return chunk
   })
 
   function combine(result) {
-    t.notOk(result, "Ended on the first chunk")
+    t.equals(result.toString(), "a", "result is correct")
   }
 
   spigot([
@@ -140,5 +143,5 @@ test("end early", function (t) {
     "u",
     "vwxyz",
   ]).pipe(f)
-    .pipe(concat(combine))
+    .pipe(concat({objectMode: true}, combine))
 })
