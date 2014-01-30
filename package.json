@@ -25,12 +25,12 @@
     "url": "https://github.com/brycebaril/through2-map/issues"
   },
   "devDependencies": {
-    "tape": "~2.3.0",
-    "stream-spigot": "~3.0.1",
-    "concat-stream": "~1.2.1"
+    "tape": "~2.4.0",
+    "stream-spigot": "~3.0.3",
+    "concat-stream": "~1.4.1"
   },
   "dependencies": {
-    "through2": "~0.2.3",
-    "terminus": "~1.0.4"
+    "through2": "~0.4.1",
+    "terminus": "~1.0.8"
   }
 }
