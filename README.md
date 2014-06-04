@@ -7,7 +7,7 @@ This is a super thin wrapper around [through2](http://npm.im/through2) that work
 
 For when through2 is just too verbose :wink:
 
-Note you will **NOT** be able to skip chunks. This is intended for modification only. If you want filter the stream content, use either `through2` or `through2-filter`.
+Note you will **NOT** be able to skip chunks. This is intended for modification only. If you want filter the stream content, use either `through2` or `through2-filter`. This transform also does not have a `flush` function.
 
 **IMPORTANT:** If you return `null` from your function, the stream will end there.
 
@@ -54,6 +54,24 @@ var spaceout = through2(function (chunk, encoding, callback) {
   * Cannot insert `null` elements into the stream without aborting.
   * No third `array` callback argument. That would require realizing the entire stream, which is generally counter-productive to stream operations.
   * `Array.prototype.map` doesn't modify the source Array, which is somewhat nonsensical when applied to streams.
+
+API
+---
+
+`require("through2-map")(options, fn)`
+---
+
+Create a `stream.Transform` instance that will call `fn(chunk, index)` on each stream segment.
+
+`var Tx = require("through2-map").ctor(options, fn)`
+---
+
+Create a reusable `stream.Transform` TYPE that can be called via `new Tx` or `Tx()` to create an instance.
+
+`require("through2-map").obj(options, fn)`
+---
+
+Create a `through2-map` instance that defaults to `objectMode: true`.
 
 Options
 -------

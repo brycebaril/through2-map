@@ -24,13 +24,24 @@
   "bugs": {
     "url": "https://github.com/brycebaril/through2-map/issues"
   },
+  "jshintConfig": {
+    "asi": true,
+    "globalstrict": true,
+    "validthis": true,
+    "eqnull": true,
+    "node": true,
+    "loopfunc": true,
+    "newcap": false,
+    "eqeqeq": false
+  },
   "devDependencies": {
     "tape": "~2.4.0",
     "stream-spigot": "~3.0.3",
     "concat-stream": "~1.4.1"
   },
   "dependencies": {
+    "terminus": "~1.0.8",
     "through2": "~0.4.1",
-    "terminus": "~1.0.8"
+    "xtend": "^3.0.0"
   }
 }

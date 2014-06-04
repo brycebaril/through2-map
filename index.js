@@ -1,7 +1,11 @@
+"use strict";
+
 module.exports = make
 module.exports.ctor = ctor
+module.exports.obj = obj
 
 var through2 = require("through2")
+var xtend = require("xtend")
 
 function ctor(options, fn) {
   if (typeof options == "function") {
@@ -20,4 +24,13 @@ function ctor(options, fn) {
 
 function make(options, fn) {
   return ctor(options, fn)()
+}
+
+function obj(options, fn) {
+  if (typeof options === "function") {
+    fn = options
+    options = {}
+  }
+  options = xtend({objectMode: true, highWaterMark: 16}, options)
+  return make(options, fn)
 }

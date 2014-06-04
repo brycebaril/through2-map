@@ -1,4 +1,6 @@
-var test = require("tape").test
+"use strict";
+
+var test = require("tape")
 
 var map = require("../")
 var spigot = require("stream-spigot")
@@ -57,7 +59,7 @@ test("ctor buffer wantStrings index", function (t) {
   t.plan(1)
 
   var Map = map.ctor({wantStrings: true}, function (chunk, index) {
-    return (index % 2 == 0) ? chunk.toUpperCase() : chunk
+    return (index % 2 === 0) ? chunk.toUpperCase() : chunk
   })
 
   function combine(result) {
@@ -79,6 +81,30 @@ test("simple", function (t) {
   t.plan(2)
 
   var m = map({objectMode: true}, function (record) {
+    record.foo.toUpperCase()
+    return record
+  })
+
+  function combine(records) {
+    t.equals(records.length, 5, "Correct number of remaining records")
+    t.notOk(records.filter(function (r) { /^[A-Z]$/.exec(r.foo) }).length, "Everything uppercased")
+  }
+
+  spigot({objectMode: true}, [
+    {foo: "bar"},
+    {foo: "baz"},
+    {foo: "bif"},
+    {foo: "blah"},
+    {foo: "buzz"},
+  ])
+    .pipe(m)
+    .pipe(concat({objectMode: true}, combine))
+})
+
+test("simple .obj", function (t) {
+  t.plan(2)
+
+  var m = map.obj(function (record) {
     record.foo.toUpperCase()
     return record
   })
