@@ -2,6 +2,7 @@
 
 module.exports = make
 module.exports.ctor = ctor
+module.exports.objCtor = objCtor
 module.exports.obj = obj
 
 var through2 = require("through2")
@@ -24,6 +25,15 @@ function ctor(options, fn) {
 
 function make(options, fn) {
   return ctor(options, fn)()
+}
+
+function objCtor(options, fn) {
+  if (typeof options === "function") {
+    fn = options
+    options = {}
+  }
+  options = xtend({objectMode: true, highWaterMark: 16}, options)
+  return ctor(options, fn)
 }
 
 function obj(options, fn) {

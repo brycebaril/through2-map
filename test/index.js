@@ -55,6 +55,31 @@ test("ctor options", function (t) {
     .pipe(concat({objectMode: true}, combine))
 })
 
+test("objCtor", function (t) {
+  t.plan(7)
+
+  var Map = map.objCtor(function (record) {
+    t.equals(this.options.objectMode, true, "can see options")
+    record.foo.toUpperCase()
+    return record
+  })
+
+  function combine(records) {
+    t.equals(records.length, 5, "Correct number of remaining records")
+    t.notOk(records.filter(function (r) { /^[A-Z]$/.exec(r.foo) }).length, "Everything uppercased")
+  }
+
+  spigot({objectMode: true}, [
+    {foo: "bar"},
+    {foo: "baz"},
+    {foo: "bif"},
+    {foo: "blah"},
+    {foo: "buzz"},
+  ])
+    .pipe(new Map({objectMode: true}))
+    .pipe(concat({objectMode: true}, combine))
+})
+
 test("ctor buffer wantStrings index", function (t) {
   t.plan(1)
 
