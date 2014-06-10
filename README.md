@@ -28,7 +28,7 @@ var truncate = through2(function (chunk, encoding, callback) {
 // Then use your map:
 source.pipe(truncate).pipe(sink)
 
-// Additionally accepts `wantStrings` argument to conver buffers into strings
+// Additionally accepts `wantStrings` argument to convert buffers into strings
 var stripTags = map({wantStrings: true}, function (str) {
   // OMG don't actually use this
   return str.replace(/<.*?>/g, "")

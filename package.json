@@ -37,10 +37,9 @@
   "devDependencies": {
     "tape": "~2.13.2",
     "stream-spigot": "~3.0.4",
-    "concat-stream": "~1.4.6"
+    "terminus": "~1.0.10"
   },
   "dependencies": {
-    "terminus": "~1.0.10",
     "through2": "~0.5.1",
     "xtend": "^3.0.0"
   }
