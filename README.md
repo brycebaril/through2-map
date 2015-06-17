@@ -58,23 +58,33 @@ var spaceout = through2(function (chunk, encoding, callback) {
 API
 ---
 
-`require("through2-map")([options,] fn)`
----
+```
+require("through2-map")([options,] fn)
+```
 
 Create a `stream.Transform` instance that will call `fn(chunk, index)` on each stream segment.
 
-`var Tx = require("through2-map").ctor([options,] fn)`
----
+- - -
+
+```
+var Tx = require("through2-map").ctor([options,] fn)
+```
 
 Create a reusable `stream.Transform` TYPE that can be called via `new Tx` or `Tx()` to create an instance.
 
-`require("through2-map").obj([options,] fn)`
----
+- - -
+
+```
+require("through2-map").obj([options,] fn)
+```
 
 Create a `through2-map` instance that defaults to `objectMode: true`.
 
-`require("through2-map").objCtor([options,] fn)`
----
+- - -
+
+```
+require("through2-map").objCtor([options,] fn)
+```
 
 Just like ctor, but with `objectMode: true` defaulting to true.
 
