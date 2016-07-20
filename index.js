@@ -16,8 +16,12 @@ function ctor(options, fn) {
 
   var Map = through2.ctor(options, function (chunk, encoding, callback) {
     if (this.options.wantStrings) chunk = chunk.toString()
-    this.push(fn.call(this, chunk, this._index++))
-    return callback()
+    try {
+      this.push(fn.call(this, chunk, this._index++))
+      return callback()
+    } catch (e) {
+      return callback(e)
+    }
   })
   Map.prototype._index = 0
   return Map
