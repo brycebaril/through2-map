@@ -43,7 +43,7 @@
     "terminus": "~1.0.12"
   },
   "dependencies": {
-    "through2": "~2.0.0",
+    "through2": "^4.0.2",
     "xtend": "^4.0.0"
   }
 }
