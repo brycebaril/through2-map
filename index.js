@@ -5,7 +5,7 @@ module.exports.ctor = ctor
 module.exports.objCtor = objCtor
 module.exports.obj = obj
 
-var through2 = require("through2")
+const through2 = require("through2")
 
 function ctor(options, fn) {
   if (typeof options == "function") {

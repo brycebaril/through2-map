@@ -1,15 +1,15 @@
 "use strict";
 
-var test = require("tape")
+const test = require("tape")
 
-var map = require("../")
-var spigot = require("stream-spigot")
-var concat = require("terminus").concat
+const map = require("../")
+const spigot = require("stream-spigot")
+const concat = require("terminus").concat
 
 test("ctor", function (t) {
   t.plan(2)
 
-  var Map = map.ctor(function (record) {
+  const Map = map.ctor(function (record) {
     record.foo.toUpperCase()
     return record
   })
@@ -33,7 +33,7 @@ test("ctor", function (t) {
 test("ctor options", function (t) {
   t.plan(7)
 
-  var Map = map.ctor({objectMode: true, foo: "bar"}, function (record) {
+  const Map = map.ctor({objectMode: true, foo: "bar"}, function (record) {
     t.equals(this.options.foo, "bar", "can see options")
     record.foo.toUpperCase()
     return record
@@ -58,7 +58,7 @@ test("ctor options", function (t) {
 test("objCtor", function (t) {
   t.plan(7)
 
-  var Map = map.objCtor(function (record) {
+  const Map = map.objCtor(function (record) {
     t.equals(this.options.objectMode, true, "can see options")
     record.foo.toUpperCase()
     return record
@@ -83,7 +83,7 @@ test("objCtor", function (t) {
 test("ctor buffer wantStrings index", function (t) {
   t.plan(1)
 
-  var Map = map.ctor({wantStrings: true}, function (chunk, index) {
+  const Map = map.ctor({wantStrings: true}, function (chunk, index) {
     return (index % 2 === 0) ? chunk.toUpperCase() : chunk
   })
 
@@ -105,7 +105,7 @@ test("ctor buffer wantStrings index", function (t) {
 test("simple", function (t) {
   t.plan(2)
 
-  var m = map({objectMode: true}, function (record) {
+  const m = map({objectMode: true}, function (record) {
     record.foo.toUpperCase()
     return record
   })
@@ -129,7 +129,7 @@ test("simple", function (t) {
 test("simple .obj", function (t) {
   t.plan(2)
 
-  var m = map.obj(function (record) {
+  const m = map.obj(function (record) {
     record.foo.toUpperCase()
     return record
   })
@@ -153,7 +153,7 @@ test("simple .obj", function (t) {
 test("simple buffer", function (t) {
   t.plan(1)
 
-  var f = map({objectMode: true}, function (chunk) {
+  const f = map({objectMode: true}, function (chunk) {
     return chunk.slice(0, 5)
   })
 
@@ -175,8 +175,8 @@ test("simple buffer", function (t) {
 test("end early", function (t) {
   t.plan(1)
 
-  var count = 0
-  var f = map(function (chunk) {
+  let count = 0
+  const f = map(function (chunk) {
     if (++count > 1)
       return null
     return chunk
@@ -200,7 +200,7 @@ test("end early", function (t) {
 test("error", function (t) {
   t.plan(1)
 
-  var f = map(function (chunk) {
+  const f = map(function (chunk) {
     throw new Error("Error in map function")
   })
 
@@ -208,7 +208,7 @@ test("error", function (t) {
     t.fail("Should not end")
   }
 
-  var r = spigot([
+  const r = spigot([
     "a",
     "b",
     "cdefghijk",
@@ -221,4 +221,3 @@ test("error", function (t) {
       t.true(err instanceof Error, "Caught error")
     })
 })
-
