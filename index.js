@@ -5,8 +5,7 @@ module.exports.ctor = ctor
 module.exports.objCtor = objCtor
 module.exports.obj = obj
 
-var through2 = require("through2")
-var xtend = require("xtend")
+const through2 = require("through2")
 
 function ctor(options, fn) {
   if (typeof options == "function") {
@@ -36,7 +35,7 @@ function objCtor(options, fn) {
     fn = options
     options = {}
   }
-  options = xtend({objectMode: true, highWaterMark: 16}, options)
+  options = Object.assign({objectMode: true, highWaterMark: 16}, options)
   return ctor(options, fn)
 }
 
@@ -45,6 +44,6 @@ function obj(options, fn) {
     fn = options
     options = {}
   }
-  options = xtend({objectMode: true, highWaterMark: 16}, options)
+  options = Object.assign({objectMode: true, highWaterMark: 16}, options)
   return make(options, fn)
 }

@@ -24,6 +24,9 @@
   "bugs": {
     "url": "https://github.com/brycebaril/through2-map/issues"
   },
+  "engines": {
+    "node": ">= 6"
+  },
   "jshintConfig": {
     "asi": true,
     "globalstrict": true,
@@ -40,7 +43,6 @@
     "terminus": "~1.0.12"
   },
   "dependencies": {
-    "through2": "~2.0.0",
-    "xtend": "^4.0.0"
+    "through2": "^4.0.2"
   }
 }
